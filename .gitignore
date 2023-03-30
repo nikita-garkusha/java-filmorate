@@ -41,6 +41,7 @@ build/
 
 ### VS Code ###
 .vscode/
+.mvn/
 
 *.db
 db/*
