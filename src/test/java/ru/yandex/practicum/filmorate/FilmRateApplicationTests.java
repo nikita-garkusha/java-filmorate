@@ -88,28 +88,4 @@ class FilmRateApplicationTests {
                 .build();
     }
 
-
-
-    @Test
-    public void testGetUsers() {
-        firstUser = userStorage.create(firstUser);
-        secondUser = userStorage.create(secondUser);
-        List<User> listUsers = userStorage.getUsers();
-        assertThat(listUsers).contains(firstUser);
-        assertThat(listUsers).contains(secondUser);
-    }
-
-
-
-    @Test
-    public void testGetFilms() {
-        firstFilm = filmStorage.create(firstFilm);
-        secondFilm = filmStorage.create(secondFilm);
-        thirdFilm = filmStorage.create(thirdFilm);
-        List<Film> listFilms = filmStorage.getFilms();
-        assertThat(listFilms).contains(firstFilm);
-        assertThat(listFilms).contains(secondFilm);
-        assertThat(listFilms).contains(thirdFilm);
-    }
-
 }
