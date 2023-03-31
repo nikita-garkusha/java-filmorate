@@ -8,7 +8,7 @@ import ru.yandex.practicum.filmorate.model.User;
 import java.time.LocalDate;
 import java.util.*;
 
-@Component("inMemoryUserStorage")
+@Component("InMemoryUserStorage")
 public class InMemoryUserStorage implements UserStorage {
 
     public Map<Long, User> users;
@@ -48,28 +48,7 @@ public class InMemoryUserStorage implements UserStorage {
         return user;
     }
 
-    @Override
-    public User getUserById(Long userId) {
-        if (!users.containsKey(userId)) {
-            throw new UserNotFoundException("Пользователь с ID=" + userId + " не найден!");
-        }
-        return users.get(userId);
-    }
 
-    @Override
-    public User delete(Long userId) {
-        if (userId == null) {
-            throw new ValidationException("Передан пустой аргумент!");
-        }
-        if (!users.containsKey(userId)) {
-            throw new UserNotFoundException("Пользователь с ID=" + userId + " не найден!");
-        }
-        // удаляем из списка друзей пользователя у других пользователей
-        for (User user : users.values()) {
-            user.getFriends().remove(userId);
-        }
-        return users.remove(userId);
-    }
 
     private boolean isValidUser(User user) {
         if (!user.getEmail().contains("@")) {

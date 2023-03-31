@@ -8,7 +8,7 @@ import ru.yandex.practicum.filmorate.model.Film;
 import java.time.LocalDate;
 import java.util.*;
 
-@Component("inMemoryFilmStorage")
+@Component("InMemoryFilmStorage")
 public class InMemoryFilmStorage implements FilmStorage {
     private Map<Long, Film> films;
     private Long currentId;
@@ -44,25 +44,6 @@ public class InMemoryFilmStorage implements FilmStorage {
             films.put(film.getId(), film);
         }
         return film;
-    }
-
-    @Override
-    public Film getFilmById(Long filmId) {
-        if (!films.containsKey(filmId)) {
-            throw new FilmNotFoundException("Фильм с ID=" + filmId + " не найден!");
-        }
-        return films.get(filmId);
-    }
-
-    @Override
-    public Film delete(Long filmId) {
-        if (filmId == null) {
-            throw new ValidationException("Передан пустой аргумент!");
-        }
-        if (!films.containsKey(filmId)) {
-            throw new FilmNotFoundException("Фильм с ID=" + filmId + " не найден!");
-        }
-        return films.remove(filmId);
     }
 
     private boolean isValidFilm(Film film) {
