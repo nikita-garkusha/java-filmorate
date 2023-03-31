@@ -6,9 +6,7 @@ import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
 @Service
 public class FilmService {
-
     private FilmStorage filmStorage;
-
     private UserStorage userStorage;
 
     public FilmService(FilmStorage filmStorage, UserStorage userStorage) {
