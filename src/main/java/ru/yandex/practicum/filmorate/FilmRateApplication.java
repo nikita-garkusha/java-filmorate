@@ -11,12 +11,6 @@ public class FilmRateApplication {
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext ctx = SpringApplication.run(FilmRateApplication.class, args);
-		try {
-			TimeUnit.SECONDS.sleep(10);
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		}
-		ctx.close();
 	}
 
 }
