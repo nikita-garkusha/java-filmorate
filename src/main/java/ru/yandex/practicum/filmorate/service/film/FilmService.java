@@ -8,7 +8,6 @@ import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 public class FilmService {
     private FilmStorage filmStorage;
     private UserStorage userStorage;
-
     public FilmService(FilmStorage filmStorage, UserStorage userStorage) {
         this.filmStorage = filmStorage;
         this.userStorage = userStorage;

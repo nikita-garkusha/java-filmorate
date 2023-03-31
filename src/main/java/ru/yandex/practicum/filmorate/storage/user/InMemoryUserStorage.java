@@ -15,7 +15,6 @@ import java.util.Map;
 public class InMemoryUserStorage implements UserStorage {
 
     public Map<Long, User> users;
-
     private Long currentId;
 
     public InMemoryUserStorage() {
