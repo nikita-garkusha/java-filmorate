@@ -1,17 +1,23 @@
 package ru.yandex.practicum.filmorate.storage.film;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exceptions.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component("InMemoryFilmStorage")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class InMemoryFilmStorage implements FilmStorage {
-    private Map<Long, Film> films;
-    private Long currentId;
+    Map<Long, Film> films;
+    Long currentId;
 
     public InMemoryFilmStorage() {
         currentId = 0L;
@@ -51,13 +57,13 @@ public class InMemoryFilmStorage implements FilmStorage {
             throw new ValidationException("Название фильма не должно быть пустым!");
         }
         if ((film.getDescription().length()) > 200 || (film.getDescription().isEmpty())) {
-            throw new ValidationException("Описание фильма больше 200 символов или пустое: " + film.getDescription().length());
+            throw new ValidationException(String.format("Описание фильма больше 200 символов или пустое: %s", film.getDescription().length()));
         }
         if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
-            throw new ValidationException("Некорректная дата релиза фильма: " + film.getReleaseDate());
+            throw new ValidationException(String.format("Некорректная дата релиза фильма: %s", film.getReleaseDate()));
         }
         if (film.getDuration() <= 0) {
-            throw new ValidationException("Продолжительность должна быть положительной: " + film.getDuration());
+            throw new ValidationException(String.format("Продолжительность должна быть положительной: %s", film.getDuration()));
         }
         return true;
     }

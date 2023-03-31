@@ -1,5 +1,7 @@
 package ru.yandex.practicum.filmorate.controllers;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
@@ -12,10 +14,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/films")
 @Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class FilmController {
-    private FilmStorage filmStorage;
-    private FilmService filmService;
-
+    FilmStorage filmStorage;
+    FilmService filmService;
 
     public FilmController(FilmStorage filmStorage, FilmService filmService) {
         this.filmStorage = filmStorage;
@@ -27,10 +29,9 @@ public class FilmController {
         return filmStorage.getFilms();
     }
 
-
     @ResponseBody
     @PostMapping
-    public Film create(@Valid @RequestBody Film film) {
+    public Film create(@Valid Film film) {
         log.info("Получен POST-запрос к эндпоинту: '/films' на добавление фильма");
         film = filmStorage.create(film);
         return film;
@@ -38,7 +39,7 @@ public class FilmController {
 
     @ResponseBody
     @PutMapping
-    public Film update(@Valid @RequestBody Film film) {
+    public Film update(@Valid Film film) {
         log.info("Получен PUT-запрос к эндпоинту: '/films' на обновление фильма с ID={}", film.getId());
         film = filmStorage.update(film);
         return film;

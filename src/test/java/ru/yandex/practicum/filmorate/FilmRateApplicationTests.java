@@ -1,6 +1,8 @@
 package ru.yandex.practicum.filmorate;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
@@ -21,17 +23,18 @@ import java.time.LocalDate;
 @AutoConfigureCache
 @Transactional
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 class FilmRateApplicationTests {
-    private final UserStorage userStorage;
-    private final FilmStorage filmStorage;
-    private final FilmService filmService;
-    private final UserService userService;
-    private User firstUser;
-    private User secondUser;
-    private User thirdUser;
-    private Film firstFilm;
-    private Film secondFilm;
-    private Film thirdFilm;
+    final UserStorage userStorage;
+    final FilmStorage filmStorage;
+    final FilmService filmService;
+    final UserService userService;
+    User firstUser;
+    User secondUser;
+    User thirdUser;
+    Film firstFilm;
+    Film secondFilm;
+    Film thirdFilm;
 
     @BeforeEach
     public void beforeEach() {

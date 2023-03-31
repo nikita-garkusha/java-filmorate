@@ -1,4 +1,5 @@
 package ru.yandex.practicum.filmorate.service.user;
+
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 

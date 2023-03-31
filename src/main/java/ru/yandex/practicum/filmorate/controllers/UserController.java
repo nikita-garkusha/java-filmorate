@@ -1,8 +1,9 @@
 package ru.yandex.practicum.filmorate.controllers;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.user.UserService;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
@@ -13,10 +14,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserController {
-    private UserStorage userStorage;
-    private UserService userService;
-
+    UserStorage userStorage;
+    UserService userService;
 
     public UserController(UserStorage userStorage, UserService userService) {
         this.userStorage = userStorage;
