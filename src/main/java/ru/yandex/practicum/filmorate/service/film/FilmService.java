@@ -9,11 +9,10 @@ public class FilmService {
     private FilmStorage filmStorage;
     private UserStorage userStorage;
 
-//    @Autowired
-//    public FilmService(@Qualifier("FilmStorage") FilmStorage filmStorage,
-//                       @Qualifier("UserStorage") UserStorage userStorage) {
-//        this.filmStorage = filmStorage;
-//        this.userStorage = userStorage;
-//
-//    }
+
+    public FilmService(FilmStorage filmStorage, UserStorage userStorage) {
+        this.filmStorage = filmStorage;
+        this.userStorage = userStorage;
+
+    }
 }

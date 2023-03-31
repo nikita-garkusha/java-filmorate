@@ -16,11 +16,11 @@ public class FilmController {
     private FilmStorage filmStorage;
     private FilmService filmService;
 
-//    @Autowired
-//    public FilmController(@Qualifier("filmStorage") FilmStorage filmStorage, FilmService filmService) {
-//        this.filmStorage = filmStorage;
-//        this.filmService = filmService;
-//    }
+
+    public FilmController(FilmStorage filmStorage, FilmService filmService) {
+        this.filmStorage = filmStorage;
+        this.filmService = filmService;
+    }
 
     @GetMapping
     public List<Film> getFilms() {
