@@ -31,7 +31,7 @@ public class FilmController {
 
     @ResponseBody
     @PostMapping
-    public Film create(@Valid Film film) {
+    public Film create(@Valid @RequestBody Film film) {
         log.info("Получен POST-запрос к эндпоинту: '/films' на добавление фильма");
         film = filmStorage.create(film);
         return film;
@@ -39,7 +39,7 @@ public class FilmController {
 
     @ResponseBody
     @PutMapping
-    public Film update(@Valid Film film) {
+    public Film update(@Valid @RequestBody Film film) {
         log.info("Получен PUT-запрос к эндпоинту: '/films' на обновление фильма с ID={}", film.getId());
         film = filmStorage.update(film);
         return film;
