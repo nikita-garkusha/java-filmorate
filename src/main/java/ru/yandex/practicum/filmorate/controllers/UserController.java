@@ -17,11 +17,11 @@ public class UserController {
     private UserStorage userStorage;
     private UserService userService;
 
-//    @Autowired
-//    public UserController(@Qualifier("UserStorage") UserStorage userStorage, UserService userService) {
-//        this.userStorage = userStorage;
-//        this.userService = userService;
-//    }
+
+    public UserController(UserStorage userStorage, UserService userService) {
+        this.userStorage = userStorage;
+        this.userService = userService;
+    }
 
     @GetMapping
     public List<User> getUsers() {
