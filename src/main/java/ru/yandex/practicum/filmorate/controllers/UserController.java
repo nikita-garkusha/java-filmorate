@@ -38,6 +38,11 @@ public class UserController {
         return user;
     }
 
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userStorage.getUserById(id);
+    }
+
     @ResponseBody
     @PutMapping
     public User update(@Valid @RequestBody User user) {
