@@ -50,6 +50,14 @@ public class InMemoryUserStorage implements UserStorage {
         return user;
     }
 
+    @Override
+    public User getUserById(Long userId) {
+        if (!users.containsKey(userId)) {
+            throw new UserNotFoundException("Пользователь с ID=" + userId + " не найден!");
+        }
+        return users.get(userId);
+    }
+
 
     private boolean isValidUser(User user) {
         if (!user.getEmail().contains("@")) {

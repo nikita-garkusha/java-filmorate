@@ -11,7 +11,9 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @Data
 @Builder
@@ -26,13 +28,15 @@ public class Film {
     LocalDate releaseDate;
     @Positive
     Integer duration;
+    Set<Long> likes;
 
-    public Film(Long id, String name, String description, LocalDate releaseDate, Integer duration) {
+    public Film(Long id, String name, String description, LocalDate releaseDate, Integer duration, Set<Long> likes) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.releaseDate = releaseDate;
         this.duration = duration;
+        this.likes = likes;
     }
 
     public Map<String, Object> toMap() {
@@ -43,5 +47,13 @@ public class Film {
         values.put("releaseDate", releaseDate);
         values.put("duration", duration);
         return values;
+    }
+
+    public void addLike(Long userId) {
+        likes.add(userId);
+    }
+
+    public void deleteLike(Long userId) {
+        likes.remove(userId);
     }
 }

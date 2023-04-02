@@ -10,10 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Builder
@@ -59,4 +56,14 @@ public class User {
         values.put("birthday", birthday);
         return values;
     }
+
+    public void addFriend(Long friendId) {
+        friends.add(friendId);
+    }
+
+    public void deleteFriend(Long friendId) {
+        friends.remove(friendId);
+    }
+
+
 }

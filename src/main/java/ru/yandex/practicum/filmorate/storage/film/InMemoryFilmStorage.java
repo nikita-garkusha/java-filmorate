@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Component("InMemoryFilmStorage")
+@Component("шnMemoryFilmStorage")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class InMemoryFilmStorage implements FilmStorage {
     Map<Long, Film> films;
@@ -50,6 +50,14 @@ public class InMemoryFilmStorage implements FilmStorage {
             films.put(film.getId(), film);
         }
         return film;
+    }
+
+    @Override
+    public Film getFilmById(Long filmId) {
+        if (!films.containsKey(filmId)) {
+            throw new FilmNotFoundException("Фильм с ID=" + filmId + " не найден!");
+        }
+        return films.get(filmId);
     }
 
     private boolean isValidFilm(Film film) {
