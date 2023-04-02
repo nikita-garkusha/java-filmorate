@@ -22,11 +22,8 @@ public class UserService {
     }
 
     public void addFriend(Long userId, Long friendId) {
-        if (!userStorage.getUsers().contains(userId)) {
-            throw new UserNotFoundException("Пользователь с ID=" + userId + " не найден!");
-        }
         if (!userStorage.getUsers().contains(friendId)) {
-            throw new UserNotFoundException("Пользователь с ID=" + friendId + " не найден!");
+            throw new UserNotFoundException("Друг с ID=" + friendId + " не найден!");
         }
         if (userId == friendId) {
             throw new ValidationException("Нельзя добавить самого себя в друзья!");
