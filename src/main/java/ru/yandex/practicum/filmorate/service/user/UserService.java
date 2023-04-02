@@ -9,6 +9,7 @@ import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
 import java.util.List;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,8 @@ public class UserService {
     }
 
     public void addFriend(Long userId, Long friendId) {
-        if (!userStorage.getUsers().contains(friendId)) {
+        List<User> users = userStorage.getUsers();
+        if(!users.contains(userStorage.getUserById(friendId))){
             throw new UserNotFoundException("Друг с ID=" + friendId + " не найден!");
         }
         if (userId == friendId) {
