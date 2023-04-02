@@ -13,10 +13,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Component("шnMemoryFilmStorage")
+@Component("inMemoryFilmStorage")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class InMemoryFilmStorage implements FilmStorage {
-    Map<Long, Film> films;
+    final Map<Long, Film> films;
     Long currentId;
 
     public InMemoryFilmStorage() {

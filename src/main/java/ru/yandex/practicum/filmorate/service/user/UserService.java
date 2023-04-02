@@ -1,5 +1,7 @@
 package ru.yandex.practicum.filmorate.service.user;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exceptions.UserNotFoundException;
@@ -13,8 +15,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserService {
-    private UserStorage userStorage;
+    final UserStorage userStorage;
 
     @Autowired
     public UserService(UserStorage userStorage) {

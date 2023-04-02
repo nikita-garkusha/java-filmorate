@@ -1,5 +1,7 @@
 package ru.yandex.practicum.filmorate.service.film;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exceptions.FilmNotFoundException;
@@ -14,9 +16,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class FilmService {
-    private FilmStorage filmStorage;
-    private UserStorage userStorage;
+    final FilmStorage filmStorage;
+    final UserStorage userStorage;
 
     @Autowired
     public FilmService(FilmStorage filmStorage, UserStorage userStorage) {

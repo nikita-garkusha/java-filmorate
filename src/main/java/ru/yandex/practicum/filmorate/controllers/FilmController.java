@@ -57,11 +57,13 @@ public class FilmController {
 
     @GetMapping("/popular")
     public List<Film> getPopular(@RequestParam(name = "count", defaultValue = "10") Integer count) {
+        log.info("Получен GET-запрос на получение популярных фильмов");
         return filmService.getPopular(count);
     }
 
     @GetMapping("/{id}")
     public Film getFilmById(@PathVariable Long id) {
+        log.info("Получен GET-запрос на получение фильма по его id");
         return filmStorage.getFilmById(id);
     }
 }
