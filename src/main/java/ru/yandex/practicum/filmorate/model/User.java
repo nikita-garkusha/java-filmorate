@@ -65,5 +65,4 @@ public class User {
         friends.remove(friendId);
     }
 
-
 }

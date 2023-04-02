@@ -29,7 +29,6 @@ public class UserController {
         return userStorage.getUsers();
     }
 
-    @ResponseBody
     @PostMapping
     public User create(@Valid @RequestBody User user) {
         log.info("Получен POST-запрос к эндпоинту: '/users' на добавление пользователя");
@@ -42,7 +41,6 @@ public class UserController {
         return userStorage.getUserById(id);
     }
 
-    @ResponseBody
     @PutMapping
     public User update(@Valid @RequestBody User user) {
         log.info("Получен PUT-запрос к эндпоинту: '/users' на обновление пользователя с ID={}", user.getId());
