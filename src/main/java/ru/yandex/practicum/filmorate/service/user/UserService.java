@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.yandex.practicum.filmorate.exceptions.UserNotFoundException;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
@@ -21,6 +22,12 @@ public class UserService {
     }
 
     public void addFriend(Long userId, Long friendId) {
+        if (!userStorage.getUsers().contains(userId)) {
+            throw new UserNotFoundException("Пользователь с ID=" + userId + " не найден!");
+        }
+        if (!userStorage.getUsers().contains(friendId)) {
+            throw new UserNotFoundException("Пользователь с ID=" + friendId + " не найден!");
+        }
         if (userId == friendId) {
             throw new ValidationException("Нельзя добавить самого себя в друзья!");
         }
