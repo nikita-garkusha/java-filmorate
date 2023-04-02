@@ -22,7 +22,7 @@ public class UserService {
 
     public void addFriend(Long userId, Long friendId) {
         List<User> users = userStorage.getUsers();
-        if (!users.contains(userStorage.getUserById(friendId))){
+        if (!users.contains(userStorage.getUserById(friendId))) {
             throw new UserNotFoundException("Друг с ID=" + friendId + " не найден!");
         }
         if (userId == friendId) {
