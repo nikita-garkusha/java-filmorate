@@ -1,5 +1,7 @@
 package ru.yandex.practicum.filmorate.controllers;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,9 +16,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/films")
 @Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class FilmController {
-    private FilmStorage filmStorage;
-    private FilmService filmService;
+    final FilmStorage filmStorage;
+    final FilmService filmService;
 
     @Autowired
     public FilmController(@Qualifier("filmDbStorage") FilmStorage filmStorage, FilmService filmService) {

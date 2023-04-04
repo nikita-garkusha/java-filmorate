@@ -1,7 +1,9 @@
 package ru.yandex.practicum.filmorate.model;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -15,20 +17,21 @@ import java.util.Set;
 
 @Data
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Film {
-    private Long id;
+    Long id;
     @NotBlank
-    private String name;
+    String name;
     @Size(min = 1, max = 200)
-    private String description;
+    String description;
     @NotNull
-    private LocalDate releaseDate;
+    LocalDate releaseDate;
     @Positive
-    private Integer duration;
-    private Set<Long> likes = new HashSet<>();
+    Integer duration;
+    Set<Long> likes = new HashSet<>();
     @NotNull
-    private Mpa mpa;
-    private Set<Genre> genres = new HashSet<>();
+    Mpa mpa;
+    Set<Genre> genres = new HashSet<>();
 
     public Film(Long id, String name, String description, LocalDate releaseDate, Integer duration,
                 Set<Long> likes, Mpa mpa, Set<Genre> genres) {

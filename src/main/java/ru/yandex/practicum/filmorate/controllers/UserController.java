@@ -1,5 +1,7 @@
 package ru.yandex.practicum.filmorate.controllers;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,9 +16,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserController {
-    private UserStorage userStorage;
-    private UserService userService;
+    final UserStorage userStorage;
+    final UserService userService;
 
     @Autowired
     public UserController(@Qualifier("userDbStorage") UserStorage userStorage, UserService userService) {
