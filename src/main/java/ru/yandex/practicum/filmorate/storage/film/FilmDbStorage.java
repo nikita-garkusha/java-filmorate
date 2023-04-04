@@ -14,6 +14,7 @@ import ru.yandex.practicum.filmorate.service.genre.GenreService;
 import ru.yandex.practicum.filmorate.service.mpa.MpaService;
 import ru.yandex.practicum.filmorate.storage.like.LikeStorage;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -52,16 +53,18 @@ public class FilmDbStorage implements FilmStorage {
 
     @Override
     public Film create(Film film) {
-        SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
-                .withTableName("films")
-                .usingGeneratedKeyColumns("id");
-        film.setId(simpleJdbcInsert.executeAndReturnKey(film.toMap()).longValue());
-        film.setMpa(mpaService.getMpaById(film.getMpa().getId()));
-        if (film.getGenres() != null) {
-            for (Genre genre : film.getGenres()) {
-                genre.setName(genreService.getGenreById(genre.getId()).getName());
+        if (isValidFilm(film)) {
+            SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
+                    .withTableName("films")
+                    .usingGeneratedKeyColumns("id");
+            film.setId(simpleJdbcInsert.executeAndReturnKey(film.toMap()).longValue());
+            film.setMpa(mpaService.getMpaById(film.getMpa().getId()));
+            if (film.getGenres() != null) {
+                for (Genre genre : film.getGenres()) {
+                    genre.setName(genreService.getGenreById(genre.getId()).getName());
+                }
+                genreService.putGenres(film);
             }
-            genreService.putGenres(film);
         }
         return film;
     }
@@ -138,4 +141,21 @@ public class FilmDbStorage implements FilmStorage {
         }
         return film;
     }
+
+    private boolean isValidFilm(Film film) {
+        if (film.getName().isEmpty()) {
+            throw new ValidationException("Название фильма не должно быть пустым!");
+        }
+        if ((film.getDescription().length()) > 200 || (film.getDescription().isEmpty())) {
+            throw new ValidationException(String.format("Описание фильма больше 200 символов или пустое: %s", film.getDescription().length()));
+        }
+        if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
+            throw new ValidationException(String.format("Некорректная дата релиза фильма: %s", film.getReleaseDate()));
+        }
+        if (film.getDuration() <= 0) {
+            throw new ValidationException(String.format("Продолжительность должна быть положительной: %s", film.getDuration()));
+        }
+        return true;
+    }
 }
+

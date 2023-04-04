@@ -39,7 +39,6 @@ public class FilmController {
         return filmService.getPopular(count);
     }
 
-    @ResponseBody
     @PostMapping
     public Film create(@Valid @RequestBody Film film) {
         log.info("Получен POST-запрос к эндпоинту: '/films' на добавление фильма");
