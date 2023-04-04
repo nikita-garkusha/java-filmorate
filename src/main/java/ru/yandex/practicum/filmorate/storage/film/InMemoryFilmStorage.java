@@ -79,10 +79,7 @@ public class InMemoryFilmStorage implements FilmStorage {
         if ((film.getDescription().length()) > 200 || (film.getDescription().isEmpty())) {
             throw new ValidationException(String.format("Описание фильма больше 200 символов или пустое: %s", film.getDescription().length()));
         }
-        LocalDate oldestReleaseDate = LocalDate.of(1895, 12, 28);
-        LocalDate film_date = film.getReleaseDate();
-        if (film_date.isBefore(oldestReleaseDate)) {
-
+        if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
             throw new ValidationException(String.format("Некорректная дата релиза фильма: %s", film.getReleaseDate()));
         }
         if (film.getDuration() <= 0) {
