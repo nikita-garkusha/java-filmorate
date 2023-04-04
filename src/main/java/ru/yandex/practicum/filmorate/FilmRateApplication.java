@@ -10,5 +10,6 @@ public class FilmRateApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FilmRateApplication.class, args);
+        //просто комментарий для проверки тестов и гита
     }
 }
