@@ -1,31 +1,31 @@
 package ru.yandex.practicum.filmorate.model;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
-import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @Data
 @Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
-    Long id;
+    private Long id;
     @Email
-    String email;
+    private String email;
     @NotBlank
     @Pattern(regexp = "\\S*$")    // логин не содержит пробелов
-    String login;
-    String name;
+    private String login;
+    private String name;
     @PastOrPresent
-    LocalDate birthday;
-    Set<Long> friends;
+    private LocalDate birthday;
+    private Set<Long> friends;
 
     public User(Long id, String email, String login, String name, LocalDate birthday, Set<Long> friends) {
         this.id = id;
@@ -56,13 +56,4 @@ public class User {
         values.put("birthday", birthday);
         return values;
     }
-
-    public void addFriend(Long friendId) {
-        friends.add(friendId);
-    }
-
-    public void deleteFriend(Long friendId) {
-        friends.remove(friendId);
-    }
-
 }

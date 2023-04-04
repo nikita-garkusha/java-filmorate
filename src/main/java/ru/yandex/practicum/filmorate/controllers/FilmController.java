@@ -1,8 +1,8 @@
 package ru.yandex.practicum.filmorate.controllers;
 
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.film.FilmService;
@@ -14,12 +14,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/films")
 @Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class FilmController {
-    FilmStorage filmStorage;
-    FilmService filmService;
+    private FilmStorage filmStorage;
+    private FilmService filmService;
 
-    public FilmController(FilmStorage filmStorage, FilmService filmService) {
+    @Autowired
+    public FilmController(@Qualifier("filmDbStorage") FilmStorage filmStorage, FilmService filmService) {
         this.filmStorage = filmStorage;
         this.filmService = filmService;
     }
@@ -29,6 +29,17 @@ public class FilmController {
         return filmStorage.getFilms();
     }
 
+    @GetMapping("/{id}")
+    public Film getFilmById(@PathVariable Long id) {
+        return filmStorage.getFilmById(id);
+    }
+
+    @GetMapping("/popular")
+    public List<Film> getPopular(@RequestParam(name = "count", defaultValue = "10") Integer count) {
+        return filmService.getPopular(count);
+    }
+
+    @ResponseBody
     @PostMapping
     public Film create(@Valid @RequestBody Film film) {
         log.info("Получен POST-запрос к эндпоинту: '/films' на добавление фильма");
@@ -36,6 +47,7 @@ public class FilmController {
         return film;
     }
 
+    @ResponseBody
     @PutMapping
     public Film update(@Valid @RequestBody Film film) {
         log.info("Получен PUT-запрос к эндпоинту: '/films' на обновление фильма с ID={}", film.getId());
@@ -55,15 +67,9 @@ public class FilmController {
         filmService.deleteLike(id, userId);
     }
 
-    @GetMapping("/popular")
-    public List<Film> getPopular(@RequestParam(name = "count", defaultValue = "10") Integer count) {
-        log.info("Получен GET-запрос на получение популярных фильмов");
-        return filmService.getPopular(count);
-    }
-
-    @GetMapping("/{id}")
-    public Film getFilmById(@PathVariable Long id) {
-        log.info("Получен GET-запрос на получение фильма по его id");
-        return filmStorage.getFilmById(id);
+    @DeleteMapping("/{id}")
+    public Film delete(@PathVariable Long id) {
+        log.info("Получен DELETE-запрос к эндпоинту: '/films' на удаление фильма с ID={}", id);
+        return filmStorage.delete(id);
     }
 }
