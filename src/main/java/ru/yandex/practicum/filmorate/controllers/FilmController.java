@@ -45,6 +45,7 @@ public class FilmController {
         film = filmStorage.create(film);
         return film;
     }
+
     @PutMapping
     public Film update(@Valid @RequestBody Film film) {
         log.info("Получен PUT-запрос к эндпоинту: '/films' на обновление фильма с ID={}", film.getId());
