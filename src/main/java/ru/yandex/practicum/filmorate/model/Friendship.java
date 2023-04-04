@@ -8,10 +8,13 @@ import lombok.NonNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Mpa {
+public class Friendship {
     @NonNull
-    private Integer id;
+    private Long fromUserId;
 
     @NonNull
-    private String name;
+    private Long toUserId;
+
+    @NonNull
+    private Boolean isMutual;
 }

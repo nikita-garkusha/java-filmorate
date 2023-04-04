@@ -1,17 +1,15 @@
 package ru.yandex.practicum.filmorate.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-public class Mpa {
+public class Like {
     @NonNull
-    private Integer id;
+    private Long filmID;
 
     @NonNull
-    private String name;
+    private Long userID;
 }

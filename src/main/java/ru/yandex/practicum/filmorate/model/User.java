@@ -1,59 +1,33 @@
 package ru.yandex.practicum.filmorate.model;
 
-import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 @Data
-@Builder
 public class User {
     private Long id;
-    @Email
+
+    @NotNull(message = "У пользователя должна быть указанна эл.почта")
+    @Email(message = "Некорректная почта")
     private String email;
-    @NotBlank
-    @Pattern(regexp = "\\S*$")    // логин не содержит пробелов
+
+    @NotNull(message = "У пользователя должен быть указан логин")
+    @NotBlank(message = "Логин не может быть пустым")
+    @Pattern(regexp = "\\S+", message = "В логине не могут находиться пробелы")
     private String login;
+
     private String name;
-    @PastOrPresent
+
+    @NotNull(message = "У пользователя должна быть указанна дата рождения")
+    @Past(message = "Дата рождения не может быть в будущем")
     private LocalDate birthday;
-    private Set<Long> friends;
 
-    public User(Long id, String email, String login, String name, LocalDate birthday, Set<Long> friends) {
-        this.id = id;
-        this.email = email;
-        this.login = login;
-        this.name = name;
-        if ((name == null) || (name.isEmpty()) || (name.isBlank())) {
-            this.name = login;
+    public String getName() {
+        if (name == null || name.isBlank()) {
+            name = login;
         }
-        this.birthday = birthday;
-        this.friends = friends;
-        if (friends == null) {
-            this.friends = new HashSet<>();
-        }
-    }
-
-    public void setName(String name) {
-        if ((name == null) || (name.isEmpty()) || (name.isBlank())) {
-            this.name = login;
-        }
-    }
-
-    public Map<String, Object> toMap() {
-        Map<String, Object> values = new HashMap<>();
-        values.put("email", email);
-        values.put("login", login);
-        values.put("name", name);
-        values.put("birthday", birthday);
-        return values;
+        return name;
     }
 }
