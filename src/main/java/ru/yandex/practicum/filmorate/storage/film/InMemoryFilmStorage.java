@@ -60,14 +60,29 @@ public class InMemoryFilmStorage implements FilmStorage {
         return films.get(filmId);
     }
 
+    @Override
+    public Film delete(Long filmId) {
+        if (filmId == null) {
+            throw new ValidationException("Передан пустой аргумент!");
+        }
+        if (!films.containsKey(filmId)) {
+            throw new FilmNotFoundException("Фильм с ID=" + filmId + " не найден!");
+        }
+        return films.remove(filmId);
+    }
+
     private boolean isValidFilm(Film film) {
+        System.out.println("ВХОД В УСЛОВИЕ");
         if (film.getName().isEmpty()) {
             throw new ValidationException("Название фильма не должно быть пустым!");
         }
         if ((film.getDescription().length()) > 200 || (film.getDescription().isEmpty())) {
             throw new ValidationException(String.format("Описание фильма больше 200 символов или пустое: %s", film.getDescription().length()));
         }
-        if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
+        LocalDate oldestReleaseDate = LocalDate.of(1895, 12, 28);
+        LocalDate film_date = film.getReleaseDate();
+        if (film_date.isBefore(oldestReleaseDate)) {
+
             throw new ValidationException(String.format("Некорректная дата релиза фильма: %s", film.getReleaseDate()));
         }
         if (film.getDuration() <= 0) {
