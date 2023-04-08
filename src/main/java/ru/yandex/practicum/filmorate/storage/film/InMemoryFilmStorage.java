@@ -60,7 +60,19 @@ public class InMemoryFilmStorage implements FilmStorage {
         return films.get(filmId);
     }
 
+    @Override
+    public Film delete(Long filmId) {
+        if (filmId == null) {
+            throw new ValidationException("Передан пустой аргумент!");
+        }
+        if (!films.containsKey(filmId)) {
+            throw new FilmNotFoundException("Фильм с ID=" + filmId + " не найден!");
+        }
+        return films.remove(filmId);
+    }
+
     private boolean isValidFilm(Film film) {
+        System.out.println("ВХОД В УСЛОВИЕ");
         if (film.getName().isEmpty()) {
             throw new ValidationException("Название фильма не должно быть пустым!");
         }
